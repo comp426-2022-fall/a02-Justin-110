@@ -9,15 +9,25 @@ const args = minimist(process.argv.slice(2));
 console.log(args)
 
 //Default action
-console.log(`Usage: galosh.js [options] -[n|s] LATITUDE -[e|w] LONGITUDE -z TIME_ZONE
-
-    -h            Show this help message and exit.
-    -n, -s        Latitude: N positive; S negative.
-    -e, -w        Longitude: E positive; W negative.
-    -z            Time zone: uses tz.guess() from moment-timezone by default.
-    -d 0-6        Day to retrieve weather: 0 is today; defaults to 1.
-    -j            Echo pretty JSON from open-meteo API and exit.
-`)
+if (args.h) {
+  try{
+    console.log(
+      `Usage: galosh.js [options] -[n|s] LATITUDE -[e|w] LONGITUDE -z TIME_ZONE
+    
+        -h            Show this help message and exit.
+        -n, -s        Latitude: N positive; S negative.
+        -e, -w        Longitude: E positive; W negative.
+        -z            Time zone: uses tz.guess() from moment-timezone by default.
+        -d 0-6        Day to retrieve weather: 0 is today; defaults to 1.
+        -j            Echo pretty JSON from open-meteo API and exit.
+    `)
+    process.exit(0)
+  }
+  catch (err) {
+    process.exit(1)
+  }
+  
+}
 
 // declare latitude
 let latitude = '35.875'
@@ -42,6 +52,11 @@ if (args.w) {
 // declare timezone
 if (args.t) {
   timezone = args.t
+}
+
+var timezone = moment.tz.guess();
+if(args.z){
+    timezone = args.z;
 }
 
 // Make a request
