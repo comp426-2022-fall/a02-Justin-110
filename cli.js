@@ -24,21 +24,26 @@ let latitude = '35.875'
 if (args.n) {
     latitude = args.n
 }
+
 if (args.s) {
     latitude = args.s
 }
+
 // declare longitude
 let longitude = '-79.0'
 if (args.e) {
     longitude = args.e
 }
+
 if (args.w) {
     longitude = args.w
 }
+
 // declare timezone
 if (args.t) {
   timezone = args.t
 }
+
 // Make a request
 const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=' + latitude + '&longitude=' + longitude + '&hourly=temperature_2m&current_weather=true&timezone=' + timezone);
 // Get the data from the request
