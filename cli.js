@@ -30,34 +30,13 @@ if (args.h) {
 }
 
 // declare latitude
-let latitude = '35.875'
-if (args.n) {
-    latitude = args.n
-}
-
-if (args.s) {
-    latitude = args.s
-}
+let latitude = args.n || args.s * -1
 
 // declare longitude
-let longitude = '-79.0'
-if (args.e) {
-    longitude = args.e
-}
-
-if (args.w) {
-    longitude = args.w
-}
+let longitude = args.e || args.w * -1
 
 // declare timezone
-if (args.t) {
-  timezone = args.t
-}
-
-var timezone = moment.tz.guess();
-if(args.z){
-    timezone = args.z;
-}
+let timezone = args.z ? args.z : moment.tz.guess();
 
 // Make a request
 const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=' + latitude + '&longitude=' + longitude + '&hourly=temperature_2m&current_weather=true&timezone=' + timezone);
@@ -65,8 +44,8 @@ const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=' 
 const data = await response.json();
 
 if (args.j) {
-	console.log(data);
-	process.exit(0);
+  console.log(data);
+  process.exit(0);
 } 
   
 const days = args.d 
@@ -78,4 +57,3 @@ if (days == 0) {
     } else {
       console.log("tomorrow.")
 }
-
